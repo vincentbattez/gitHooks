@@ -1,0 +1,27 @@
+#!/bin/sh
+redTxt="\e[91m"
+greenTxt="\e[92m"
+cyanTxt="\e[96m"
+endColor="\e[0m"
+
+msg=`cat $1`
+                                    #  {} is for show space
+regexType="^(:[a-z]+:[[ ]]*)"       #  {:type: }
+regexScope="((\(.+\):[[ ]]*)|())"   #  {(scope): } OR NOTHING
+regexIssueID="((#[0-9]+)|())"            #  {#9} => #issueID
+regexDescription="(-.+)$"           #  {-description}
+                             # Result  {:type: (scope): #9-description}
+
+if [[ $msg =~ $regexType$regexScope$regexIssueID$regexDescription ]];
+then
+  printf $cyanTxt"[prepare-commit-msg] - Done "$endColor;
+else 
+  printf $cyanTxt"[prepare-commit-msg] - Fail "$endColor"\n";
+  printf $redTxt"Commit message not match with commit template 😭 :";
+  echo "";
+  echo "❌  "$msg;
+  printf "✅  :type: (scope): #issueID-description"$endColor;
+  exit 1
+fi
+
+echo "$msg" > $1
