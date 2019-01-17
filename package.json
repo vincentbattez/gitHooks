@@ -1,0 +1,22 @@
+{
+  "name": "hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./tests/equality_test.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vincentbattez/gitHooks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vincentbattez/gitHooks/issues"
+  },
+  "homepage": "https://github.com/vincentbattez/gitHooks#readme",
+  "devDependencies": {
+    "shared-git-hooks": "^1.2.1"
+  }
+}
