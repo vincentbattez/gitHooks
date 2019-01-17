@@ -5,23 +5,26 @@ cyanTxt="\e[96m"
 endColor="\e[0m"
 
 msg=`cat $1`
-                                    #  {} is for show space
-regexType="^(:[a-z]+:[[ ]]*)"       #  {:type: }
-regexScope="((\(.+\):[[ ]]*)|())"   #  {(scope): } OR NOTHING
-regexIssueID="((#[0-9]+)|())"            #  {#9} => #issueID
-regexDescription="(-.+)$"           #  {-description}
-                             # Result  {:type: (scope): #9-description}
 
-if [[ $msg =~ $regexType$regexScope$regexIssueID$regexDescription ]];
+# curly bracket = {} is for show space
+regexType="^(build|ci|docs|feat|fix|perf|refactor|style|test)"  # {type} type = build|ci|docs|feat|fix|perf|refactor|style|test
+regexScope="(\(.+\):[[:space:]])"                               # {(scope): } OR NOTHING
+regexDescription="(.+)$"                                        # {description}
+
+if [[ $msg =~ $regexType$regexScope$regexDescription ]];
 then
   printf $cyanTxt"[prepare-commit-msg] - Done "$endColor;
 else 
   printf $cyanTxt"[prepare-commit-msg] - Fail "$endColor"\n";
-  printf $redTxt"Commit message not match with commit template 😭 :";
-  echo "";
-  echo "❌  "$msg;
-  printf "✅  :type: (scope): #issueID-description"$endColor;
+  printf $redTxt"Your commit message not match with commit template 😭 :\n";
+  printf "❌  "$msg"\n";
+  printf "✅  type(scope): #issueID-description""\n";
+  printf "✅  type: #issueID-description""\n";
+  printf "✅  type: description""\n";
+  printf "$endColor$greenTxt""🔵  List of type authorized:"$endColor$cyanTxt" build|ci|docs|feat|fix|perf|refactor|style|test"$endColor"\n";
   exit 1
 fi
 
+printf "\n";
+# exit 1
 echo "$msg" > $1
