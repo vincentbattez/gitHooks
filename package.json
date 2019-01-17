@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./tests/equality_test.sh"
+    "test": "./equality_test.sh"
   },
   "repository": {
     "type": "git",
