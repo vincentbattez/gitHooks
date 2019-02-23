@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/vincentbattez/gitHooks#readme",
   "devDependencies": {
+    "@commitlint/cli": "^7.5.2",
+    "@commitlint/config-angular": "^7.5.0",
     "shared-git-hooks": "^1.2.1"
   }
 }

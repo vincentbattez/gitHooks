@@ -1,30 +1,19 @@
 #!/bin/sh
-redTxt="\e[91m"
-greenTxt="\e[92m"
-cyanTxt="\e[96m"
-endColor="\e[0m"
+. sh/config.sh
+clear
 
+step="prepare-commit-msg"
 msg=`cat $1`
 
-# curly bracket = {} is for show space
-regexType="^(build|ci|docs|feat|fix|perf|refactor|style|test)"  # {type} type = build|ci|docs|feat|fix|perf|refactor|style|test
-regexScope="(\(.+\):[[:space:]])"                               # {(scope): } OR NOTHING
-regexDescription="(.+)$"                                        # {description}
-
-if [[ $msg =~ $regexType$regexScope$regexDescription ]];
+echo $msg | npx commitlint
+if [[ "$?" == 1 ]];
 then
-  printf $cyanTxt"[prepare-commit-msg] - Done "$endColor;
-else 
-  printf $cyanTxt"[prepare-commit-msg] - Fail "$endColor"\n";
-  printf $redTxt"Your commit message not match with commit template 😭 :\n";
-  printf "❌  "$msg"\n";
-  printf "✅  type(scope): #issueID-description""\n";
-  printf "✅  type: #issueID-description""\n";
-  printf "✅  type: description""\n";
-  printf "$endColor$greenTxt""🔵  List of type authorized:"$endColor$cyanTxt" build|ci|docs|feat|fix|perf|refactor|style|test"$endColor"\n";
+  message 'fail' $step 'Angular commit message'
   exit 1
 fi
 
-printf "\n";
-# exit 1
+# SUCCESS MESSAGE
+clear
+message 'success' $step 'Angular commit message'
+
 echo "$msg" > $1

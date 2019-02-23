@@ -1,0 +1,8 @@
+#!/bin/sh
+. sh/config.sh
+clear
+
+step="pre-push"
+
+# Eslint:
+# runTest "Linter - Eslint" $step 'npx eslint --ext .js,.vue .' 1
