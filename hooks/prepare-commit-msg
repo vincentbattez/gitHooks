@@ -1,5 +1,5 @@
 #!/bin/sh
-. sh/config.sh
+. utils.sh
 clear
 
 step="prepare-commit-msg"
